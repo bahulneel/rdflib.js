@@ -38,10 +38,11 @@ import { isCollection, isNamedNode} from './utils/terms'
 import * as Util from './utils-js'
 import serialize from './serialize'
 
-// @ts-ignore This is injected
-import { fetch as solidAuthCli } from 'solid-auth-cli'
-// @ts-ignore This is injected
-import { fetch as solidAuthClient } from 'solid-auth-client'
+/* Remove the inbuilt fetcher */
+// // @ts-ignore This is injected
+// import { fetch as solidAuthCli } from 'solid-auth-cli'
+// // @ts-ignore This is injected
+// import { fetch as solidAuthClient } from 'solid-auth-client'
 import {
   ContentType, TurtleContentType, RDFXMLContentType, XHTMLContentType
 } from './types'
@@ -56,7 +57,10 @@ import {
 } from './tf-types'
 
 // This is a special fetch which does OIDC auth, catching 401 errors
-const fetch = typeof window === 'undefined' ? solidAuthCli : solidAuthClient
+// const fetch = typeof window === 'undefined' ? solidAuthCli : solidAuthClient
+const fetch = () => {
+    throw new Error('Support for the built in fetch has been removed')
+};
 
 const Parsable = {
   'text/n3': true,
